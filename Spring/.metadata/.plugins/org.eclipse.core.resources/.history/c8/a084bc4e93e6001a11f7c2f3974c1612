@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<context:component-scan base-package="spring.di.ui"/>
+	<!-- Exam exam = new NewlecExam(10,20,30,40); -->
+	<!-- <bean id = "exam" class = "spring.di.entity.NewlecExam" p:kor="40" p:eng="10" p:math="20" p:com="50"/>
+	<bean id = "exam2" class = "spring.di.entity.NewlecExam" p:kor="60" p:eng="30" p:math="20" p:com="80"/> -->
+	<!-- <bean id = "exam" class = "spring.di.entity.NewlecExam">
+		<property name ="kor" value="10"/>
+		<property name ="eng" value="20"/>
+		<property name ="math" value="30"/>
+		<property name ="com" value="40"/>
+		<constructor-arg name="kor" value ="10"/>
+		<constructor-arg name="eng" value ="20"/>
+		<constructor-arg name="math" value ="30"/>
+		<constructor-arg name="com" value ="40"/>
+	</bean> -->
+	
+	
+	<!-- ExamConsole console = new InlineExamConsole(exam); -->
+	 <!-- <bean id = "console" class = "spring.di.ui.InlineExamConsole">
+		console.setExam(exam);
+		<property name="exam" ref="exam"/>
+	</bean>  -->
+	
+	
+	<!-- <util:list id="exams" list-class="java.util.ArrayList">
+		<bean class = "spring.di.entity.NewlecExam" p:kor="40" p:eng="10" p:math="20" p:com="50"/>
+		<ref bean="exam"/>
+	</util:list> -->
+	
+	<!-- <bean id = "exams" class="java.util.ArrayList">
+	
+		<constructor-arg>
+			<list>
+				<bean class = "spring.di.entity.NewlecExam" p:kor="40" p:eng="10" p:math="20" p:com="50"/>
+				<ref bean="exam"/>
+			</list>
+		</constructor-arg>
+	</bean> -->
+	
+</beans>

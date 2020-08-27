@@ -1,0 +1,17 @@
+package spring.di;
+
+import spring.di.entity.Exam;
+import spring.di.entity.NewlecExam;
+
+public class Program {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		public
+		
+		Exam exam = new NewlecExam();
+		
+	}
+
+}
