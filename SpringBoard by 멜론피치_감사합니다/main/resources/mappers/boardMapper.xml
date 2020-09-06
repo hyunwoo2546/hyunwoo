@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<!-- 게시판 글 작성 -->
+	<insert id="insert">
+	 INSERT INTO MP_BOARD(    BNO 
+	 					      , TITLE 
+	 					      , CONTENT 
+	 					      , WRITER  )
+	               VALUES(    MP_BOARD_SEQ.NEXTVAL 
+	               		  , #{title}
+	               		  , #{content}
+	               		  , #{writer}  )
+	
+	</insert>
+
+	<!-- 게시글 목록 -->
+	<select id="list" resultType="com.hyunwoo.vo.BoardVO">	resultType은 쿼리 실행 후 그 결과를 com.hyunwoo.vo.BoardVO 여기에 저장하겠단 뜻.
+		SELECT   BNO
+			   , TITLE
+			   , WRITER
+			   , REGDATE
+		  FROM MP_BOARD
+		  ORDER BY BNO DESC
+	</select>
+	
+	<select id="listPage" resultType="com.hyunwoo.vo.BoardVO" parameterType="com.hyunwoo.vo.Criteria">
+		SELECT  BNO, 
+		        TITLE, 
+		        CONTENT,
+		        WRITER, 
+		        REGDATE
+		 FROM ( 
+		        SELECT BNO, 
+		               TITLE, 
+		               CONTENT, 
+		               WRITER, 
+		               REGDATE, 
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM MP_BOARD 
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
+	</select>
+	
+	<!-- 게시물 조회 -->
+	<select id = "read" parameterType="int" resultType="com.hyunwoo.vo.BoardVO">
+		SELECT BNO
+				,TITLE
+				,CONTENT
+				,WRITER
+				,REGDATE
+			FROM MP_BOARD
+			WHERE BNO = #{bno}
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id = "update" parameterType="com.hyunwoo.vo.BoardVO">
+		UPDATE MP_BOARD
+		   SET TITLE    =   #{title},
+		   	   CONTENT  =   #{content}
+		 WHERE BNO = #{bno} 
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id = "delete" parameterType="com.hyunwoo.vo.BoardVO">
+		DELETE 
+			FROM MP_BOARD
+			WHERE BNO = #{bno}
+	</delete>
+	
+	<!-- 페이징 -->
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(BNO)
+		  FROM MP_BOARD
+		 WHERE BNO > 0
+	]]>
+	</select>
+		
+		
+</mapper>
